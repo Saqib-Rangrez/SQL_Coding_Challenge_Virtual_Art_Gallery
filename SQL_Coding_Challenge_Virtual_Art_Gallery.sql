@@ -1,12 +1,15 @@
----Coding Challenge SQL -- Virtual Art Gallery
+---Coding Challenge SQL -- Virtual Art Gallery - By Saqib Rangrez
 
+--Creating database
 IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'Art_Gallery')
     CREATE DATABASE Art_Gallery;
 GO
 
+--use Database
 USE Art_Gallery;
 
 
+-- Creating the Artists table
 CREATE TABLE Artists (
  ArtistID INT PRIMARY KEY,
  Name VARCHAR(255) NOT NULL,
@@ -14,11 +17,13 @@ CREATE TABLE Artists (
  Nationality VARCHAR(100));
 
 
+ -- Creating the Categories table
 CREATE TABLE Categories (
  CategoryID INT PRIMARY KEY,
  Name VARCHAR(100) NOT NULL);
 
 
+ -- Creating the Artworks table
 CREATE TABLE Artworks (
  ArtworkID INT PRIMARY KEY,
  Title VARCHAR(255) NOT NULL,
@@ -31,6 +36,7 @@ CREATE TABLE Artworks (
  FOREIGN KEY (CategoryID) REFERENCES Categories (CategoryID));
 
 
+ -- Creating the Exhibitions table
 CREATE TABLE Exhibitions (
  ExhibitionID INT PRIMARY KEY,
  Title VARCHAR(255) NOT NULL,
@@ -39,6 +45,7 @@ CREATE TABLE Exhibitions (
  Description TEXT);
 
 
+ -- Creating a junction table to associate artworks with exhibitions
 CREATE TABLE ExhibitionArtworks (
  ExhibitionID INT,
  ArtworkID INT,
@@ -47,29 +54,34 @@ CREATE TABLE ExhibitionArtworks (
  FOREIGN KEY (ArtworkID) REFERENCES Artworks (ArtworkID));
 
 
+ -- Insert sample data into the Artists table
 INSERT INTO Artists (ArtistID, Name, Biography, Nationality) VALUES
  (1, 'Pablo Picasso', 'Renowned Spanish painter and sculptor.', 'Spanish'),
  (2, 'Vincent van Gogh', 'Dutch post-impressionist painter.', 'Dutch'),
  (3, 'Leonardo da Vinci', 'Italian polymath of the Renaissance.', 'Italian');
 
 
+ -- Insert sample data into the Categories table
 INSERT INTO Categories (CategoryID, Name) VALUES
  (1, 'Painting'),
  (2, 'Sculpture'),
  (3, 'Photography');
 
 
+ -- Insert sample data into the Artworks table
 INSERT INTO Artworks (ArtworkID, Title, ArtistID, CategoryID, Year, Description, ImageURL) VALUES
  (1, 'Starry Night', 2, 1, 1889, 'A famous painting by Vincent van Gogh.', 'starry_night.jpg'),
  (2, 'Mona Lisa', 3, 1, 1503, 'The iconic portrait by Leonardo da Vinci.', 'mona_lisa.jpg'),
  (3, 'Guernica', 1, 1, 1937, 'Pablo Picasso\''s powerful anti-war mural.', 'guernica.jpg');
 
 
+ -- Insert sample data into the Exhibitions table
 INSERT INTO Exhibitions (ExhibitionID, Title, StartDate, EndDate, Description) VALUES
  (1, 'Modern Art Masterpieces', '2023-01-01', '2023-03-01', 'A collection of modern art masterpieces.'),
  (2, 'Renaissance Art', '2023-04-01', '2023-06-01', 'A showcase of Renaissance art treasures.');
 
 
+ -- Insert artworks and exhibitions into junction table
 INSERT INTO ExhibitionArtworks (ExhibitionID, ArtworkID) VALUES
  (1, 1),
  (1, 2),
