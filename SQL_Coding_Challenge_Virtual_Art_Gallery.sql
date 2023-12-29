@@ -106,11 +106,11 @@ FROM Artists A ORDER BY ArtworkCount;
 
 --2. List the titles of artworks created by artists from 'Spanish' and 'Dutch' nationalities, and order
 --them by the year in ascending order.
-SELECT AW.Title
+SELECT AW.Title, AW.Year
 FROM Artists A
 JOIN Artworks AW ON A.ArtistID = AW.ArtistID
 WHERE A.Nationality IN ('Spanish', 'Dutch')
-ORDER BY AW.Year;
+ORDER BY AW.Year ASC;
 
 
 --3. Find the names of all artists who have artworks in the 'Painting' category, and the number of
